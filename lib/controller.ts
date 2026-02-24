@@ -174,6 +174,11 @@ export class Controller {
 
     @bind async enableDisableExtension(enable: boolean, name: string): Promise<void> {
         if (enable) {
+            const extension = this.getExtension(name);
+            if (extension) {
+                await this.removeExtension(extension);
+            }
+
             switch (name) {
                 case "Frontend": {
                     if (!settings.get().frontend.enabled) {
